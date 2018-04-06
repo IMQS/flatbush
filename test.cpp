@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
 				f.Add(x + 0.1, y + 0.1, x + 0.9, y + 0.9);
 		}
 		f.Finish();
-		printf("Time to insert %d elements: %.2f seconds\n", dim * dim, (clock() - start) / (double) CLOCKS_PER_SEC);
+		printf("Time to insert %d elements: %.0f milliseconds\n", dim * dim, 1000 * (clock() - start) / (double) CLOCKS_PER_SEC);
 
 		start                      = clock();
 		size_t              nquery = 10 * 1000 * 1000;
@@ -70,8 +70,8 @@ int main(int argc, char** argv) {
 			results.clear();
 			float minx = sx % dim;
 			float miny = sy % dim;
-			float maxx = minx + 3.0;
-			float maxy = miny + 3.0;
+			float maxx = minx + 5.0;
+			float maxy = miny + 5.0;
 			f.Search(minx, miny, maxx, maxy, results);
 			nresults += results.size();
 		}

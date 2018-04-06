@@ -21,3 +21,9 @@ auto results = fb.Search(minx, miny, maxx, maxy);
 // results are an array of indices. The index starts at zero, and is the order in which you inserted
 // elements into the tree.
 ```
+
+## Performance
+
+* Inserting 1,000,000 rectangles: 98 ms
+* Query that retrieves 7 results: 150 ns
+* Query that retrieves 25 results: 350 ns
