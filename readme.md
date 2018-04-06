@@ -1,11 +1,8 @@
-# C++ port of mourner/flatbush
+# C++ port of https://github.com/mourner/flatbush
 
 This is a straightforward port of https://github.com/mourner/flatbush.
 
 To test: `clang++ --std=c++11 -Wall -O2 -o test test.cpp && ./test`
-
-Note that this is actually a point index, so you are only guaranteed to
-find an object when it's center lies inside the query box.
 
 Example:
 ```cpp
@@ -23,6 +20,8 @@ auto results = fb.Search(minx, miny, maxx, maxy);
 ```
 
 ## Performance
+
+These results are from an i7-4770 @ 3.4GHz, clang 3.8, x64
 
 * Inserting 1,000,000 rectangles: 98 ms
 * Query that retrieves 7 results: 150 ns

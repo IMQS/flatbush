@@ -28,11 +28,10 @@ int main(int argc, char** argv) {
 			float maxy           = miny + (float) (rand() % (maxQueryWindow * precision)) / (float) precision;
 			auto  results        = f.Search(minx, miny, maxx, maxy);
 			// brute force validation that there are no false negatives
+			flatbush::FlatBush<float>::Box qbox = {0, minx, miny, maxx, maxy};
 			for (auto box : boxes) {
-				float cx = (box.MinX + box.MaxX) / 2.0f;
-				float cy = (box.MinY + box.MaxY) / 2.0f;
-				if (minx <= cx && miny <= cy && maxx >= cx && maxy >= cy) {
-					// if center of object is inside the query rectangle, then it should be included in the result set
+				if (box.PositiveUnion(qbox)) {
+					// if object crosses the query rectangle, then it should be included in the result set
 					size_t k = 0;
 					for (; k < results.size(); k++) {
 						if (results[k] == box.Index)
@@ -70,8 +69,8 @@ int main(int argc, char** argv) {
 			results.clear();
 			float minx = sx % dim;
 			float miny = sy % dim;
-			float maxx = minx + 5.0;
-			float maxy = miny + 5.0;
+			float maxx = minx + 3.0;
+			float maxy = miny + 3.0;
 			f.Search(minx, miny, maxx, maxy, results);
 			nresults += results.size();
 		}
