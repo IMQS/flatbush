@@ -4,13 +4,15 @@
 
 int main(int argc, char** argv) {
 	{
-		flatbush::FlatBush<float> f;
-		int                       dim = 100;
+		flatbush::FlatBush<float>                   f;
+		std::vector<flatbush::FlatBush<float>::Box> boxes;
+		int                                         dim = 100;
 		f.Reserve(dim * dim);
 		size_t index = 0;
 		for (float x = 0; x < dim; x++) {
 			for (float y = 0; y < dim; y++) {
-				size_t checkIndex = f.Add(x + 0.1, y + 0.1, x + 0.9, y + 0.9);
+				boxes.push_back({index, x + 0.1f, y + 0.1f, x + 0.9f, y + 0.9f});
+				size_t checkIndex = f.Add(x + 0.1f, y + 0.1f, x + 0.9f, y + 0.9f);
 				assert(checkIndex == index);
 				index++;
 			}
@@ -26,10 +28,9 @@ int main(int argc, char** argv) {
 			float maxy           = miny + (float) (rand() % (maxQueryWindow * precision)) / (float) precision;
 			auto  results        = f.Search(minx, miny, maxx, maxy);
 			// brute force validation that there are no false negatives
-			for (size_t j = 0; j < dim * dim; j++) {
-				auto  box = f.Item(j);
-				float cx  = (box.MinX + box.MaxX) / 2.0f;
-				float cy  = (box.MinY + box.MaxY) / 2.0f;
+			for (auto box : boxes) {
+				float cx = (box.MinX + box.MaxX) / 2.0f;
+				float cy = (box.MinY + box.MaxY) / 2.0f;
 				if (minx <= cx && miny <= cy && maxx >= cx && maxy >= cy) {
 					// if center of object is inside the query rectangle, then it should be included in the result set
 					size_t k = 0;

@@ -31,7 +31,6 @@ public:
 	void                Finish();                                                                                       // Build the index
 	void                Search(TCoord minX, TCoord minY, TCoord maxX, TCoord maxY, std::vector<size_t>& results) const; // Search for items
 	std::vector<size_t> Search(TCoord minX, TCoord minY, TCoord maxX, TCoord maxY) const;                               // Search for items
-	Box                 Item(size_t index) const;                                                                       // Retrieve an item by index
 	size_t              Size() const { return NumItems; }
 
 private:
@@ -178,11 +177,6 @@ void FlatBush<TCoord>::Search(TCoord minX, TCoord minY, TCoord maxX, TCoord maxY
 			}
 		}
 	}
-}
-
-template <typename TCoord>
-typename FlatBush<TCoord>::Box FlatBush<TCoord>::Item(size_t index) const {
-	return Boxes[index];
 }
 
 template <typename TCoord>
