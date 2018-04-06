@@ -1,4 +1,4 @@
-# C++ port of https://github.com/mourner/flatbush
+# C++ port of mourner/flatbush
 
 This is a straightforward port of https://github.com/mourner/flatbush.
 
