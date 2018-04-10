@@ -218,7 +218,7 @@ void FlatBush<TCoord>::Sort(uint32_t* values, Box* boxes, size_t left, size_t ri
 }
 
 // From https://github.com/rawrunprotected/hilbert_curves (public domain)
-uint32_t Interleave(uint32_t x) {
+inline uint32_t Interleave(uint32_t x) {
 	x = (x | (x << 8)) & 0x00FF00FF;
 	x = (x | (x << 4)) & 0x0F0F0F0F;
 	x = (x | (x << 2)) & 0x33333333;
