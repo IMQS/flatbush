@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdio.h>
+#include <time.h>
 #include "flatbush.h"
 
 int main(int argc, char** argv) {
