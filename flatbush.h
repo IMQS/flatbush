@@ -51,6 +51,9 @@ FlatBush<TCoord>::FlatBush() {
 
 template <typename TCoord>
 void FlatBush<TCoord>::Reserve(size_t size) {
+	if (size == 0)
+		return;
+
 	size_t n        = size;
 	size_t numNodes = n;
 	do {
