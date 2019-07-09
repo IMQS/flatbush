@@ -74,6 +74,9 @@ size_t FlatBush<TCoord>::Add(TCoord minX, TCoord minY, TCoord maxX, TCoord maxY)
 
 template <typename TCoord>
 void FlatBush<TCoord>::Finish() {
+	if (Boxes.size() == 0)
+		return;
+
 	if (NodeSize < 2)
 		NodeSize = 2;
 
