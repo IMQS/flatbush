@@ -5,6 +5,17 @@
 
 int main(int argc, char** argv) {
 	{
+		// empty set
+		flatbush::FlatBush<float>                   f;
+		std::vector<flatbush::FlatBush<float>::Box> boxes;
+		f.Reserve(0);
+		f.Finish();
+		if (f.Search(0, 0, 1, 1).size() != 0) {
+			printf("expected empty search results\n");
+			exit(1);
+		}
+	}
+	{
 		flatbush::FlatBush<float>                   f;
 		std::vector<flatbush::FlatBush<float>::Box> boxes;
 		int                                         dim = 100;

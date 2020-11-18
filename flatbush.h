@@ -51,15 +51,12 @@ FlatBush<TCoord>::FlatBush() {
 
 template <typename TCoord>
 void FlatBush<TCoord>::Reserve(size_t size) {
-	if (size == 0)
-		return;
-
 	size_t n        = size;
 	size_t numNodes = n;
 	do {
 		n = (n + NodeSize - 1) / NodeSize;
 		numNodes += n;
-	} while (n != 1);
+	} while (n > 1);
 
 	Boxes.reserve(numNodes);
 }
@@ -77,9 +74,6 @@ size_t FlatBush<TCoord>::Add(TCoord minX, TCoord minY, TCoord maxX, TCoord maxY)
 
 template <typename TCoord>
 void FlatBush<TCoord>::Finish() {
-	if (Boxes.size() == 0)
-		return;
-
 	if (NodeSize < 2)
 		NodeSize = 2;
 
@@ -94,7 +88,7 @@ void FlatBush<TCoord>::Finish() {
 		n = (n + NodeSize - 1) / NodeSize;
 		numNodes += n;
 		LevelBounds.push_back(numNodes);
-	} while (n != 1);
+	} while (n > 1);
 
 	TCoord width  = Bounds.MaxX - Bounds.MinX;
 	TCoord height = Bounds.MaxY - Bounds.MinY;
@@ -111,7 +105,8 @@ void FlatBush<TCoord>::Finish() {
 	}
 
 	// sort items by their Hilbert value (for packing later)
-	Sort(&HilbertValues[0], &Boxes[0], 0, Boxes.size() - 1);
+	if (Boxes.size() != 0)
+		Sort(&HilbertValues[0], &Boxes[0], 0, Boxes.size() - 1);
 
 	// generate nodes at each tree level, bottom-up
 	for (size_t i = 0, pos = 0; i < LevelBounds.size() - 1; i++) {
